@@ -1,0 +1,6 @@
+@import "variables.scss";
+.Elevation {
+  border-radius: 16px;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3), 0 8px 12px 6px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-light-surface-container-highest;
+}

@@ -1,0 +1,58 @@
+.container {
+  max-width: 1000px;
+  margin: 30px auto;
+  background-color: #e8def8;
+  border-radius: 15px;
+  padding: 30px;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.19, 1, 0.22, 1);
+  hr {
+    height: 0;
+    border: none;
+    border-top: 1px solid #000;
+  }
+  h1 {
+    text-align: center;
+  }
+  h2 {
+    text-align: center;
+  }
+  article {
+    border-radius: 10px;
+    border: 1px solid #000;
+    padding: 15px;
+    & + article {
+      margin-top: 30px;
+    }
+  }
+}
+.elevationLight,
+.elevationDark {
+  margin: 30px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  & > div {
+    padding: 30px;
+  }
+}
+.elevationDark {
+  color: #fff;
+}
+.row {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
