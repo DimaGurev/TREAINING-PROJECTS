@@ -1,0 +1,69 @@
+@mixin border {
+  border-radius: 16px;
+}
+
+$--m3-sys-light-surface-container-low: #f7f2fa;
+$--m3-sys-light-surface-container: #f3edf7;
+$--m3-sys-light-surface-container-high: #ece6f0;
+$--m3-sys-light-surface-container-highest: #e6e0e9;
+
+// * Light
+
+.LightElevationFirst {
+  @include border;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  background: --m3-sys-light-surface-container-low;
+}
+.LightElevationSecond {
+  @include border;
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  background: --m3-sys-light-surface-container;
+}
+.LightElevationThird {
+  @include border;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  background: --m3-sys-light-surface-container-high;
+}
+.LightElevationFourth {
+  @include border;
+  box-shadow: 0 2px 3px 0 rgba(160, 81, 81, 0.3), 0 6px 10px 4px rgba(0, 0, 0, 0.15);
+  background: --m3-sys-light-surface-container-high;
+}
+.LightElevationFifth {
+  @include border;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3), 0 8px 12px 6px rgba(0, 0, 0, 0.15);
+  background: --m3-sys-light-surface-container-highest;
+}
+
+// * Dark
+
+$--m3-sys-light-on-background: #1d1b20;
+$--m3-sys-dark-surface-container: #211f26;
+$--m3-sys-dark-surface-container-high: #2b2930;
+$--m3-sys-dark-surface-container-highest: #36343b;
+
+.DarkElevationFirst {
+  @include border;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-light-on-background;
+}
+.DarkElevationSecond {
+  @include border;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-dark-surface-container;
+}
+.DarkElevationThird {
+  @include border;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-dark-surface-container-high;
+}
+.DarkElevationFourth {
+  @include border;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3), 0 6px 10px 4px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-dark-surface-container-high;
+}
+.DarkElevationFifth {
+  @include border;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3), 0 8px 12px 6px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-dark-surface-container-highest;
+}
