@@ -1,0 +1,11 @@
+@import "fonts.scss";
+@import "normalize.scss";
+
+body {
+  background-color: #242424;
+}
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
