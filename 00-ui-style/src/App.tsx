@@ -70,6 +70,11 @@ function App() {
             </button>
           </div>
         </article>
+        <article>
+          <h2>Inputs</h2>
+          <hr />
+          <input type="text" placeholder="placeholder" />
+        </article>
       </main>
     </>
   );
