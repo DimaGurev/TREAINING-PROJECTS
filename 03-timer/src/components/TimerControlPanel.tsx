@@ -1,5 +1,8 @@
+// Импорт стилей
 import elevation from "./../assets/style/elevation.module.scss";
 import buttons from "./../assets/style/buttons.module.scss";
+
+// Импорт пропсов и хуков React
 import { Props } from "../App";
 import { useEffect, useState } from "react";
 
@@ -21,8 +24,12 @@ const playBeep = () => {
   oscillator.stop(audioCtx.currentTime + 1);
 };
 
-const TimerControlPanel: React.FC<Props> = ({ minuts, setMinuts, setStatus }) => {
-  const initialSeconds = (minuts ?? 0) * 60;
+const TimerControlPanel: React.FC<Props> = ({
+  minutes: minutes,
+  setMinutes: setMinutes,
+  setTimerStatus: setTimerStatus,
+}) => {
+  const initialSeconds = (minutes ?? 0) * 60;
   const [seconds, setSeconds] = useState(initialSeconds);
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
@@ -44,11 +51,13 @@ const TimerControlPanel: React.FC<Props> = ({ minuts, setMinuts, setStatus }) =>
     }
 
     return () => clearInterval(time);
-  }, [isRunning]);
+  }, [isRunning, seconds]);
+
+  const toggleTimer = () => setIsRunning((prev) => !prev);
 
   const changeStatus = () => {
-    setStatus("input");
-    setMinuts(undefined);
+    setTimerStatus("input");
+    setMinutes(undefined);
   };
 
   const convertSecondsToTime = (seconds: number): string => {
@@ -63,10 +72,18 @@ const TimerControlPanel: React.FC<Props> = ({ minuts, setMinuts, setStatus }) =>
     <div className={elevation.LightElevationFifth} style={{ width: "400px" }}>
       <h2>Timer</h2>
       <h2>{convertSecondsToTime(seconds)}</h2>
-      <button onClick={() => setIsRunning((prev) => !prev)} className={buttons.FilledButtons} style={{ width: "100%" }}>
+      <button
+        onClick={toggleTimer}
+        className={buttons.FilledButtons}
+        style={{ width: "100%" }}
+      >
         Start/Pause
       </button>
-      <button onClick={changeStatus} className={buttons.FilledButtons} style={{ width: "100%", marginTop: "20px" }}>
+      <button
+        onClick={changeStatus}
+        className={buttons.FilledButtons}
+        style={{ width: "100%", marginTop: "20px" }}
+      >
         Reset Timer
       </button>
     </div>

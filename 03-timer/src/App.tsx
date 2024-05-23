@@ -1,26 +1,44 @@
+// Импорт стилей
 import main from "./assets/style/main.module.scss";
+
+// Импорт React Hooks
 import { useState } from "react";
+
+// Импорт компонентов
 import TimerInputForm from "./components/TimerInputForm";
 import TimerControlPanel from "./components/TimerControlPanel";
 
+// Определение типов и интерфейсов
 type Status = React.Dispatch<React.SetStateAction<"input" | "control">>;
-type Minuts = React.Dispatch<React.SetStateAction<number | undefined>>;
+type Minutes = React.Dispatch<React.SetStateAction<number | undefined>>;
 
 export interface Props {
-  minuts: number | undefined;
-  setMinuts: Minuts;
-  setStatus: Status;
+  minutes: number | undefined;
+  setMinutes: Minutes;
+  setTimerStatus: Status;
 }
 
 function App() {
-  const [status, setStatus] = useState<"input" | "control">("input");
+  const [timerStatus, setTimerStatus] = useState<"input" | "control">("input");
 
-  const [minuts, setMinuts] = useState<number>();
+  const [minutes, setMinutes] = useState<number>();
 
   return (
     <div className={main.center} style={{ textAlign: "center" }}>
-      {status === "input" && <TimerInputForm minuts={minuts} setMinuts={setMinuts} setStatus={setStatus} />}
-      {status === "control" && <TimerControlPanel minuts={minuts} setMinuts={setMinuts} setStatus={setStatus} />}
+      {timerStatus === "input" && (
+        <TimerInputForm
+          minutes={minutes}
+          setMinutes={setMinutes}
+          setTimerStatus={setTimerStatus}
+        />
+      )}
+      {timerStatus === "control" && (
+        <TimerControlPanel
+          minutes={minutes}
+          setMinutes={setMinutes}
+          setTimerStatus={setTimerStatus}
+        />
+      )}
     </div>
   );
 }

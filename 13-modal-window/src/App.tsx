@@ -1,10 +1,14 @@
+// Импорт React и его компонентов
 import React from "react";
 
+// Импорт стилей
 import "./App.css";
 import elevation from "./assets/style/elevation.module.scss";
 import main from "./assets/style/main.module.scss";
 import typography from "./assets/style/typography.module.scss";
 import buttons from "./assets/style/buttons.module.scss";
+
+// Импорт компонентов
 import Modal from "./Modal";
 
 function App() {
