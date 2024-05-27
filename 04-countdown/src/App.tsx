@@ -25,7 +25,6 @@ export interface PropsTimer {
   selectedDate: string;
 }
 
-// TODO: Сделать чтоб таймер сохранялся в браузере
 function App() {
   const [activeSection, setActiveSection] = useState<Section>("input");
   const [nameTimer, setNameTimer] = useState<string>("");

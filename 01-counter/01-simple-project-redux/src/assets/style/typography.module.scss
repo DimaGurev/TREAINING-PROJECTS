@@ -1,0 +1,118 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@import "mixins.scss";
+
+// * Display
+@mixin Display {
+  @include fontFamily;
+  font-weight: 400;
+}
+.DisplayLarge {
+  font-size: 57px;
+  line-height: 112%;
+  letter-spacing: 0em;
+  @include Display;
+}
+.DisplayMedium {
+  font-size: 45px;
+  line-height: 116%;
+  @include Display;
+}
+.DisplaySmall {
+  font-size: 36px;
+  line-height: 122%;
+  @include Display;
+}
+
+// * Headline
+@mixin Headline {
+  @include fontFamily;
+  font-weight: 400;
+}
+.HeadlineLarge {
+  font-size: 32px;
+  line-height: 125%;
+  @include Display;
+}
+.HeadlineMedium {
+  font-size: 28px;
+  line-height: 129%;
+  @include Display;
+}
+.HeadlineSmall {
+  font-size: 24px;
+  line-height: 133%;
+  @include Display;
+}
+
+// * Title
+@mixin Title {
+  @include fontFamily;
+}
+.TitleLarge {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 127%;
+  @include Title;
+}
+.TitleMedium {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.01em;
+  @include Title;
+}
+.TitleSmall {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 143%;
+  letter-spacing: 0.01em;
+  @include Title;
+}
+
+// * Label
+@mixin Label {
+  font-weight: 500;
+  @include fontFamily;
+}
+.LabelLarge {
+  font-size: 14px;
+  line-height: 143%;
+  letter-spacing: 0.01em;
+  @include Label;
+}
+.LabelMedium {
+  font-size: 12px;
+  line-height: 133%;
+  letter-spacing: 0.04em;
+  @include Label;
+}
+.LabelSmall {
+  font-size: 11px;
+  line-height: 145%;
+  letter-spacing: 0.05em;
+  @include Label;
+}
+
+// * Body
+@mixin Body {
+  font-weight: 400;
+  @include fontFamily;
+}
+.BodyLarge {
+  font-size: 16px;
+  line-height: 150%;
+  letter-spacing: 0.03em;
+  @include Body;
+}
+.BodyMedium {
+  font-size: 14px;
+  line-height: 143%;
+  letter-spacing: 0.02em;
+  @include Body;
+}
+.BodySmall {
+  font-size: 12px;
+  line-height: 133%;
+  @include Body;
+}
