@@ -1,0 +1,29 @@
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 15px;
+}
+.circle {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1px solid red;
+  border-radius: 100%;
+  display: inline-block;
+  padding: 10px;
+}
+.circle p {
+  margin: 8px 0 0 0;
+  line-height: 100%;
+}

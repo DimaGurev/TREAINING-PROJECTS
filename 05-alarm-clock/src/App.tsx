@@ -56,7 +56,7 @@ const App: React.FC = () => {
         selectAMPM &&
         selectHours === `${selectAMPM === "PM" ? hours - 12 : hours}` &&
         selectMinutes === `${minutes}` &&
-        seconds === 44
+        seconds === 0
       ) {
         handlePlay();
         setIsTimerFinished(true);
