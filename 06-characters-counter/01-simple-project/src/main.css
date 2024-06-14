@@ -1,0 +1,20 @@
+textarea {
+  height: 200px;
+  resize: vertical;
+  max-height: 300px;
+}
+span {
+  font-weight: bold;
+}
+.row {
+  gap: 10px;
+  margin-top: 20px;
+}
+.row > div {
+  border: 1px solid #696969;
+  padding: 5px;
+  text-align: center;
+}
+h1 {
+  text-align: center;
+}

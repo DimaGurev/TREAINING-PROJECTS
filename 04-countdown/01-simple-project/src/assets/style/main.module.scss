@@ -1,0 +1,19 @@
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100vw;
+  min-height: 100vh;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: 15px;
+
+  > * {
+    flex: 1; /* Все дочерние элементы будут одинаковой ширины */
+    max-width: 90px; /* Минимальная ширина элемента, можно задать по необходимости */
+    min-width: 90px; /* Минимальная ширина элемента, можно задать по необходимости */
+  }
+}

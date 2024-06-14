@@ -1,0 +1,62 @@
+@import "variables/variables.scss";
+
+@mixin border {
+  border-radius: 16px;
+  padding: 20px;
+}
+
+// * Light
+
+.LightElevationFirst {
+  @include border;
+  box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  background: $--m3-sys-light-surface-container-low;
+}
+.LightElevationSecond {
+  @include border;
+  box-shadow: 0 2px 6px 2px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  background: $--m3-sys-light-surface-container;
+}
+.LightElevationThird {
+  @include border;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-light-surface-container-high;
+}
+.LightElevationFourth {
+  @include border;
+  box-shadow: 0 2px 3px 0 rgba(160, 81, 81, 0.3), 0 6px 10px 4px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-light-surface-container-high;
+}
+.LightElevationFifth {
+  @include border;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3), 0 8px 12px 6px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-light-surface-container-highest;
+}
+
+// * Dark
+
+.DarkElevationFirst {
+  @include border;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 1px 3px 1px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-light-on-background;
+}
+.DarkElevationSecond {
+  @include border;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3), 0 2px 6px 2px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-dark-surface-container;
+}
+.DarkElevationThird {
+  @include border;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 4px 8px 3px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-dark-surface-container-high;
+}
+.DarkElevationFourth {
+  @include border;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3), 0 6px 10px 4px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-dark-surface-container-high;
+}
+.DarkElevationFifth {
+  @include border;
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.3), 0 8px 12px 6px rgba(0, 0, 0, 0.15);
+  background: $--m3-sys-dark-surface-container-highest;
+}
