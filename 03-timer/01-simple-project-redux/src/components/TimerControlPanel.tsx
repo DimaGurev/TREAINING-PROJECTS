@@ -3,33 +3,20 @@ import elevation from "./../assets/style/elevation.module.scss";
 import buttons from "./../assets/style/buttons.module.scss";
 
 // Импорт пропсов и хуков React
-import { Props } from "../App";
 import { useEffect, useState } from "react";
 
-const audioCtx = new (window.AudioContext || window.AudioContext)();
+import { useDispatch, useSelector } from "react-redux";
+import { changeStatus as setStatus } from "./../store/timerSlice";
 
-const playBeep = () => {
-  const oscillator = audioCtx.createOscillator();
-  const gainNode = audioCtx.createGain();
+import playBeep from "../utils/playBeep";
+import convertSecondsToTime from "../utils/convertSecondsToTime";
+import { changeMinutes } from "../store/minutesSlice";
+import { RootState } from "../store/store";
 
-  oscillator.connect(gainNode);
-  gainNode.connect(audioCtx.destination);
+const TimerControlPanel: React.FC = () => {
+  const minutes = useSelector((state: RootState) => state.minutes.value);
+  const dispatch = useDispatch();
 
-  oscillator.type = "triangle";
-  oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
-  oscillator.start();
-
-  gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1);
-
-  oscillator.stop(audioCtx.currentTime + 1);
-};
-
-const TimerControlPanel: React.FC<Props> = ({
-  minutes,
-  setMinutes,
-  setTimerStatus,
-}) => {
   const initialSeconds = (minutes ?? 0) * 60;
   const [seconds, setSeconds] = useState(initialSeconds);
   const [isRunning, setIsRunning] = useState<boolean>(false);
@@ -57,16 +44,8 @@ const TimerControlPanel: React.FC<Props> = ({
   const toggleTimer = (): void => setIsRunning((prev) => !prev);
 
   const changeStatus = (): void => {
-    setTimerStatus("input");
-    setMinutes(undefined);
-  };
-
-  const convertSecondsToTime = (seconds: number): string => {
-    const minutes: number = Math.floor(seconds / 60);
-    const remainingSeconds: number = seconds % 60;
-    const formattedMinutes: string = String(minutes).padStart(2, "0");
-    const formattedSeconds: string = String(remainingSeconds).padStart(2, "0");
-    return `${formattedMinutes} : ${formattedSeconds}`;
+    dispatch(setStatus());
+    dispatch(changeMinutes(undefined));
   };
 
   return (

@@ -2,43 +2,26 @@
 import main from "./assets/style/main.module.scss";
 
 // Импорт React Hooks
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "./store/store";
 
 // Импорт компонентов
 import TimerInputForm from "./components/TimerInputForm";
 import TimerControlPanel from "./components/TimerControlPanel";
-
-// Определение типов и интерфейсов
-type Status = React.Dispatch<React.SetStateAction<"input" | "control">>;
-type Minutes = React.Dispatch<React.SetStateAction<number | undefined>>;
-
-export interface Props {
-  minutes: number | undefined;
-  setMinutes: Minutes;
-  setTimerStatus: Status;
-}
+import { changeMinutes } from "./store/minutesSlice";
 
 function App() {
-  const [timerStatus, setTimerStatus] = useState<"input" | "control">("input");
-
-  const [minutes, setMinutes] = useState<number>();
+  const timerStatus = useSelector((state: RootState) => state.timer.value);
+  const minutes = useSelector((state: RootState) => state.minutes.value);
+  const dispatch = useDispatch();
 
   return (
     <div className={main.center} style={{ textAlign: "center" }}>
-      {timerStatus === "input" && (
-        <TimerInputForm
-          minutes={minutes}
-          setMinutes={setMinutes}
-          setTimerStatus={setTimerStatus}
-        />
-      )}
-      {timerStatus === "control" && (
-        <TimerControlPanel
-          minutes={minutes}
-          setMinutes={setMinutes}
-          setTimerStatus={setTimerStatus}
-        />
-      )}
+      <p onClick={() => dispatch(changeMinutes(1))} style={{ color: "#fff" }}>
+        {minutes}
+      </p>
+      {timerStatus === "input" && <TimerInputForm />}
+      {timerStatus === "control" && <TimerControlPanel />}
     </div>
   );
 }
