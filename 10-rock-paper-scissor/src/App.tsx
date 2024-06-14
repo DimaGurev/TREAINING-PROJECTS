@@ -2,19 +2,12 @@
 import main from "./assets/style/main.module.scss";
 import elevation from "./assets/style/elevation.module.scss";
 import buttons from "./assets/style/buttons.module.scss";
+
 // Импорт React и его компонентов
 import { useEffect, useState } from "react";
 
-// Импорт компонентов приложения
-
 // Импорт библиотек и сторонних зависимостей
 import Confetti from "react-confetti";
-
-// Импорт типов и интерфейсов
-
-// Импорт утилит и вспомогательных функций
-
-// Импорт констант и перечислений
 
 // Импорт изображений, шрифтов и других ресурсов
 import stoneImage from "./assets/image/hand-rock.png";

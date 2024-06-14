@@ -7,19 +7,21 @@ import { useEffect, useState } from "react";
 function App(): JSX.Element {
   const [seconds, setSeconds] = useState<number>(0);
   const [isRunning, setIsRunning] = useState<boolean>(false);
-  const [isButtonStartDisabled, setIsButtonStartDisabled] = useState<boolean>(false);
-  const [isButtonPauseDisabled, setIsButtonPauseDisabled] = useState<boolean>(false);
+  const [isButtonStartDisabled, setIsButtonStartDisabled] =
+    useState<boolean>(false);
+  const [isButtonPauseDisabled, setIsButtonPauseDisabled] =
+    useState<boolean>(false);
 
   useEffect(() => {
-    let time: number;
+    let intervalId: number;
 
     if (isRunning) {
-      time = setInterval(() => {
+      intervalId = setInterval(() => {
         setSeconds((prevSeconds) => prevSeconds + 1);
       }, 1000);
     }
 
-    return () => clearInterval(time);
+    return () => clearInterval(intervalId);
   }, [isRunning]);
 
   const start = (): void => {
@@ -54,15 +56,28 @@ function App(): JSX.Element {
     <>
       <div className={`${elevation.LightElevationFifth} ${styles.box}`}>
         <h1 className={typography.DisplayMedium}>StopWatch</h1>
-        <p className={typography.HeadlineLarge}>{convertSecondsToTime(seconds)}</p>
+        <p className={typography.HeadlineLarge}>
+          {convertSecondsToTime(seconds)}
+        </p>
         <div className={styles.row}>
-          <button onClick={start} className={`${buttons.FilledButtons} ${styles.start}`} disabled={isButtonStartDisabled ? true : false}>
+          <button
+            onClick={start}
+            className={`${buttons.FilledButtons} ${styles.start}`}
+            disabled={isButtonStartDisabled ? true : false}
+          >
             Start
           </button>
-          <button onClick={pause} className={`${buttons.FilledButtons} ${styles.pause}`} disabled={isButtonPauseDisabled ? true : false}>
+          <button
+            onClick={pause}
+            className={`${buttons.FilledButtons} ${styles.pause}`}
+            disabled={isButtonPauseDisabled ? true : false}
+          >
             Pause
           </button>
-          <button onClick={reset} className={`${buttons.FilledButtons} ${styles.reset}`}>
+          <button
+            onClick={reset}
+            className={`${buttons.FilledButtons} ${styles.reset}`}
+          >
             Reset
           </button>
         </div>

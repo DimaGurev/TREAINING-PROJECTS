@@ -1,19 +1,5 @@
-// Импорт стилей
-
-// Импорт React и его компонентов
+  // Импорт React и его компонентов
 import { useState } from "react";
-
-// Импорт компонентов приложения
-
-// Импорт библиотек и сторонних зависимостей
-
-// Импорт типов и интерфейсов
-
-// Импорт утилит и вспомогательных функций
-
-// Импорт констант и перечислений
-
-// Импорт изображений, шрифтов и других ресурсов
 
 function getRandomNumber(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -32,7 +18,7 @@ function App() {
     if (!userName) {
       setUsetName(value);
     }
-    if (userName) {
+    if (userName) { 
       setAnswerOptions((prev) => [...prev, +value]);
     }
     if (userName && +value === randomNumber) {

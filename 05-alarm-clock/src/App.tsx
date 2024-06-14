@@ -9,19 +9,11 @@ import { useEffect, useState } from "react";
 // Импорт компонентов приложения
 import Select from "./components/Select";
 
-// Импорт библиотек и сторонних зависимостей
-
-// Импорт типов и интерфейсов
-
-// Импорт утилит и вспомогательных функций
-
-// Импорт констант и перечислений
-
 // Импорт изображений, шрифтов и других ресурсов
 import { LuAlarmClock } from "react-icons/lu";
-import mp3 from "/sounds/ringtone.mp3";
+import ringtone from "/sounds/ringtone.mp3";
 
-const audio = new Audio(mp3);
+const audio = new Audio(ringtone);
 
 const options = {
   hours: Array.from({ length: 12 }, (_, i) => `${++i}`),
@@ -31,14 +23,11 @@ const options = {
 
 const App: React.FC = () => {
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
-
   const [isSetTime, setIsSetTime] = useState<boolean>(false);
   const [isTimerFinished, setIsTimerFinished] = useState<boolean>(false);
-
   const [selectHours, setSelectHours] = useState<string>("");
   const [selectMinutes, setSelectMinutes] = useState<string>("");
   const [selectAMPM, setselectAMPM] = useState<string>("");
-
   const hours: number = currentTime.getHours();
   const minutes: number = currentTime.getMinutes();
   const seconds: number = currentTime.getSeconds();

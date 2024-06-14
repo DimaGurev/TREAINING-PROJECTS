@@ -2,21 +2,12 @@
 import main from "./assets/style/main.module.scss";
 import elevation from "./assets/style/elevation.module.scss";
 import "react-toastify/dist/ReactToastify.css";
+
 // Импорт React и его компонентов
 import { useEffect, useState } from "react";
 
-// Импорт компонентов приложения
-
 // Импорт библиотек и сторонних зависимостей
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
-
-// Импорт типов и интерфейсов
-
-// Импорт утилит и вспомогательных функций
-
-// Импорт констант и перечислений
-
-// Импорт изображений, шрифтов и других ресурсов
 
 type TypeStatus = "victory" | "defeat" | "inProgress";
 
@@ -32,7 +23,7 @@ const CustomToast: React.FC<CustomToastProps> = ({ status, randomNumber }) => (
     ) : (
       <p>Вы проиграли 🥲!</p>
     )}
-    <p>The number you guessed - {randomNumber}</p>
+    <p>Загаданное число - {randomNumber}</p>
     <button
       onClick={() => {
         window.location.reload();

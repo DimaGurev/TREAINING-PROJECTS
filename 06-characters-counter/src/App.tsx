@@ -2,32 +2,22 @@
 import main from "./assets/style/main.module.scss";
 import elevation from "./assets/style/elevation.module.scss";
 import typography from "./assets/style/typography.module.scss";
+
 // Импорт React и его компонентов
 import { useState } from "react";
 
-// Импорт компонентов приложения
-
-// Импорт библиотек и сторонних зависимостей
-
-// Импорт типов и интерфейсов
-
-// Импорт утилит и вспомогательных функций
-
-// Импорт констант и перечислений
-
-// Импорт изображений, шрифтов и других ресурсов
-function countSpaces(str: string) {
-  // Используем регулярное выражение для поиска всех пробелов
-  const spacesArray = str.match(/ /g);
-  // Если пробелов нет, возвращаем 0, иначе возвращаем длину массива
-  return spacesArray ? spacesArray.length : 0;
-}
 interface Statistics {
   chars: number;
   words: number;
   spaces: number;
   letters: number;
 }
+
+function countSpaces(str: string) {
+  const spacesArray = str.match(/ /g);
+  return spacesArray ? spacesArray.length : 0;
+}
+
 function App() {
   const [text, setText] = useState<string>("");
 
@@ -43,12 +33,8 @@ function App() {
     setText(value);
 
     const arr = value.split(" ");
-    console.log(arr);
 
     const arrFilterWord = arr.filter((i) => (i === "" ? false : true));
-    console.log("arrFilterWord", arrFilterWord);
-
-    console.log(arrFilterWord.join(""));
 
     setStatistics({
       chars: value.length,
@@ -56,7 +42,6 @@ function App() {
       spaces: countSpaces(value),
       letters: arrFilterWord.join("").length,
     });
-    console.log("----------------------------");
   };
 
   return (

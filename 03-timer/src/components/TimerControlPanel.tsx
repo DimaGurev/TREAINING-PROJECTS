@@ -6,8 +6,9 @@ import buttons from "./../assets/style/buttons.module.scss";
 import { Props } from "../App";
 import { useEffect, useState } from "react";
 
+const audioCtx = new (window.AudioContext || window.AudioContext)();
+
 const playBeep = () => {
-  const audioCtx = new (window.AudioContext || window.AudioContext)();
   const oscillator = audioCtx.createOscillator();
   const gainNode = audioCtx.createGain();
 
@@ -18,16 +19,16 @@ const playBeep = () => {
   oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
   oscillator.start();
 
-  gainNode.gain.setValueAtTime(2, audioCtx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.00002, audioCtx.currentTime + 3);
+  gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+  gainNode.gain.exponentialRampToValueAtTime(0.00001, audioCtx.currentTime + 1);
 
   oscillator.stop(audioCtx.currentTime + 1);
 };
 
 const TimerControlPanel: React.FC<Props> = ({
-  minutes: minutes,
-  setMinutes: setMinutes,
-  setTimerStatus: setTimerStatus,
+  minutes,
+  setMinutes,
+  setTimerStatus,
 }) => {
   const initialSeconds = (minutes ?? 0) * 60;
   const [seconds, setSeconds] = useState(initialSeconds);
@@ -39,7 +40,7 @@ const TimerControlPanel: React.FC<Props> = ({
     if (isRunning && seconds > 0) {
       time = setInterval(() => {
         setSeconds((prevSeconds) => {
-          if (prevSeconds <= 0) {
+          if (prevSeconds <= 1) {
             clearInterval(time);
             playBeep();
             setIsRunning(false);
@@ -47,15 +48,15 @@ const TimerControlPanel: React.FC<Props> = ({
           }
           return prevSeconds - 1;
         });
-      }, 1000);
+      }, 100);
     }
 
     return () => clearInterval(time);
   }, [isRunning, seconds]);
 
-  const toggleTimer = () => setIsRunning((prev) => !prev);
+  const toggleTimer = (): void => setIsRunning((prev) => !prev);
 
-  const changeStatus = () => {
+  const changeStatus = (): void => {
     setTimerStatus("input");
     setMinutes(undefined);
   };

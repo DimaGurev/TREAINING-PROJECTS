@@ -9,7 +9,7 @@ const counterSlice = createSlice({
     increase: (state) => {
       state.value += 1;
     },
-    dercease: (state) => {
+    decrease: (state) => {
       state.value -= 1;
     },
     reset: (state) => {
@@ -18,5 +18,5 @@ const counterSlice = createSlice({
   },
 });
 
-export const { increase, dercease, reset } = counterSlice.actions;
+export const { increase, decrease, reset } = counterSlice.actions;
 export default counterSlice.reducer;

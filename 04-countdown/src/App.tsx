@@ -9,16 +9,8 @@ import { useEffect, useState } from "react";
 import Timer from "./components/Timer";
 import Input from "./components/Input";
 
-// Импорт библиотек и сторонних зависимостей
-
-// Импорт типов и интерфейсов
-
 // Импорт утилит и вспомогательных функций
 import { convertSecondsToDHMS } from "./utils/time";
-
-// Импорт констант и перечислений
-
-// Импорт изображений, шрифтов и других ресурсов
 
 function App() {
   const [status, setStatus] = useState<"input" | "timer">("input");
@@ -41,11 +33,9 @@ function App() {
     setTimeDifferenceInSeconds(
       selectedDateInSeconds - currentDateInSeconds + timezoneOffset
     );
-    if (selectedDateInSeconds - currentDateInSeconds + timezoneOffset < 0) {
-      setIsCountdownFinished(true);
-    } else {
-      setIsCountdownFinished(false);
-    }
+    setIsCountdownFinished(
+      selectedDateInSeconds - currentDateInSeconds + timezoneOffset < 0
+    );
   }, [selectedDate]);
 
   useEffect(() => {
@@ -53,7 +43,6 @@ function App() {
     if (status === "timer" && !isCountdownFinished) {
       interval = setInterval(() => {
         setTimeDifferenceInSeconds((prev) => prev - 1);
-        console.log(timeDifferenceInSeconds);
       }, 1000);
     }
     return () => clearInterval(interval);

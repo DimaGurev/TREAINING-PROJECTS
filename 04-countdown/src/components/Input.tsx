@@ -2,20 +2,6 @@
 import { InputProps } from "../types";
 import buttons from "./../assets/style/buttons.module.scss";
 import typography from "./../assets/style/typography.module.scss";
-// Импорт React и его компонентов
-import { useState } from "react";
-
-// Импорт компонентов приложения
-
-// Импорт библиотек и сторонних зависимостей
-
-// Импорт типов и интерфейсов
-
-// Импорт утилит и вспомогательных функций
-
-// Импорт констант и перечислений
-
-// Импорт изображений, шрифтов и других ресурсов
 
 const Input: React.FC<InputProps> = ({
   name,

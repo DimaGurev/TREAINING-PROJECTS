@@ -3,23 +3,21 @@ import main from "./assets/style/main.module.scss";
 import elevation from "./assets/style/elevation.module.scss";
 import buttons from "./assets/style/buttons.module.scss";
 import "react-toastify/dist/ReactToastify.css";
+
 // Импорт React и его компонентов
 import { useEffect, useState } from "react";
-
-// Импорт компонентов приложения
 
 // Импорт библиотек и сторонних зависимостей
 import { ToastContainer, ToastOptions, toast } from "react-toastify";
 
-// Импорт типов и интерфейсов
 
 // Импорт утилит и вспомогательных функций
 import { getRandomNumber } from "./utils/random";
+
 // Импорт констант и перечислений
 import mock from "./mock";
 import { shuffleWord } from "./utils/shuffle";
 
-// Импорт изображений, шрифтов и других ресурсов
 
 const setting: ToastOptions = {
   position: "bottom-center",

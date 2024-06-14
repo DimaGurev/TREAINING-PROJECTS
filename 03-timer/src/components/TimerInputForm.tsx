@@ -6,9 +6,9 @@ import buttons from "./../assets/style/buttons.module.scss";
 import { Props } from "../App";
 
 const TimerInputForm: React.FC<Props> = ({
-  minutes: minutes,
-  setMinutes: setMinutes,
-  setTimerStatus: setTimerStatus,
+  minutes,
+  setMinutes,
+  setTimerStatus,
 }) => {
   const changeValue = (e: React.ChangeEvent<HTMLInputElement>): void => {
     const value = Number(e.target.value);

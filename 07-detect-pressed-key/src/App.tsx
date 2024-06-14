@@ -6,18 +6,6 @@ import typography from "./assets/style/typography.module.scss";
 // Импорт React и его компонентов
 import { useEffect, useState } from "react";
 
-// Импорт компонентов приложения
-
-// Импорт библиотек и сторонних зависимостей
-
-// Импорт типов и интерфейсов
-
-// Импорт утилит и вспомогательных функций
-
-// Импорт констант и перечислений
-
-// Импорт изображений, шрифтов и других ресурсов
-
 const grid: React.CSSProperties = {
   margin: "0 auto",
   width: "400px",
@@ -39,9 +27,8 @@ function App() {
   const handleKeyDown = (event: KeyboardEvent) => {
     setData({
       key: event.key === " " ? "Space" : event.key,
-      code: event.keyCode || event.which,
+      code: event.code.charCodeAt(0),
     });
-    console.log({ key: event.key, code: event.keyCode || event.which });
   };
 
   const handleKeyUp = () => {
@@ -50,9 +37,7 @@ function App() {
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
-    // window.addEventListener("keyup", handleKeyUp);
 
-    // Удаляем обработчики при размонтировании компонента
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);

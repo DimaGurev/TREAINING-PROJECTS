@@ -3,21 +3,11 @@ import main from "./../assets/style/main.module.scss";
 import buttons from "./../assets/style/buttons.module.scss";
 import typography from "./../assets/style/typography.module.scss";
 
-// Импорт React и его компонентов
-
 // Импорт компонентов приложения
 import TimeBlock from "./TimeBlock";
 
-// Импорт библиотек и сторонних зависимостей
-
 // Импорт типов и интерфейсов
 import { TimerProps } from "../types";
-
-// Импорт утилит и вспомогательных функций
-
-// Импорт констант и перечислений
-
-// Импорт изображений, шрифтов и других ресурсов
 
 const Timer: React.FC<TimerProps> = ({
   isCountdownFinished,

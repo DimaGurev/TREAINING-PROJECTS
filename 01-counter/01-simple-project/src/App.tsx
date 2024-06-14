@@ -10,7 +10,7 @@ import { useState } from "react";
 function App() {
   const [count, setCount] = useState<number>(0);
 
-  const dercease = () => {
+  const decrease = () => {
     setCount((prev) => prev - 1);
   };
   const increase = () => {
@@ -27,7 +27,7 @@ function App() {
         <p className={typography.HeadlineLarge}>{count}</p>
         <div className={styles.row}>
           <button
-            onClick={dercease}
+            onClick={decrease}
             className={`${buttons.FilledButtons} ${styles.dec}`}
           >
             Decrease
