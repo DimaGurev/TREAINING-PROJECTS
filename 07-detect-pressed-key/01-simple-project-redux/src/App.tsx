@@ -4,7 +4,11 @@ import elevation from "./assets/style/elevation.module.scss";
 import typography from "./assets/style/typography.module.scss";
 
 // Импорт React и его компонентов
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
+import { getKeyData } from "./store/keyDataSlice";
+import { RootState } from "./store/store";
 
 const grid: React.CSSProperties = {
   margin: "0 auto",
@@ -14,25 +18,21 @@ const grid: React.CSSProperties = {
   gridTemplateRows: "1fr",
 };
 
-interface Data {
-  key: string;
-  code: number;
-}
-
-type DataType = undefined | Data;
-
 function App() {
-  const [data, setData] = useState<DataType>(undefined);
+  const data = useSelector((state: RootState) => state.keyData);
+  const dispatch = useDispatch();
 
   const handleKeyDown = (event: KeyboardEvent) => {
-    setData({
+    const data = {
       key: event.key === " " ? "Space" : event.key,
-      code: event.code.charCodeAt(0),
-    });
+      code: event.keyCode || event.which,
+    };
+
+    dispatch(getKeyData(data));
   };
 
   const handleKeyUp = () => {
-    setData(undefined);
+    dispatch(getKeyData(undefined));
   };
 
   useEffect(() => {
@@ -46,23 +46,24 @@ function App() {
 
   return (
     <>
+      <button onClick={() => console.log(data)}>qwe</button>
       <div className={main.center} style={{ textAlign: "center" }}>
         <div
           className={elevation.LightElevationFirst}
           style={{ width: "400px" }}
         >
-          {data === undefined ? (
+          {data.value === undefined ? (
             <h2 className={typography.DisplaySmall}>Press any key</h2>
           ) : (
             <>
               <h2 className={main.circle}>
-                <p>{data.code}</p>
+                <p>{data.value.code}</p>
               </h2>
-              <p style={{ textTransform: "uppercase" }}>{data.key}</p>
+              <p style={{ textTransform: "uppercase" }}>{data.value.key}</p>
               <div className={main.row} style={grid}>
-                <p>Key: {data.key}</p>
+                <p>Key: {data.value.key}</p>
                 <p>|</p>
-                <p>Code: {data.code}</p>
+                <p>Code: {data.value.code}</p>
               </div>
             </>
           )}
