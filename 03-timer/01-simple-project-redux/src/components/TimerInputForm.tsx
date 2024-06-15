@@ -11,31 +11,18 @@ const TimerInputForm: React.FC = () => {
   const minutes = useSelector((state: RootState) => state.minutes.value);
   const dispatch = useDispatch();
 
-  const changeValue = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const value = Number(e.target.value);
-    if (!Number.isNaN(value) && value <= 999999999999999) {
-      dispatch(changeMinutes(value !== 0 ? value : undefined));
-    }
-  };
-
-  const changeStatus = (): void => {
-    if (minutes !== undefined && minutes) {
-      dispatch(setStatus());
-    }
-  };
-
   return (
     <div className={elevation.LightElevationFifth} style={{ width: "400px" }}>
       <h2>Timer</h2>
       <input
-        value={typeof minutes === "number" ? minutes : ""}
-        onChange={changeValue}
+        value={minutes}
+        onChange={(e) => dispatch(changeMinutes(e.target.value))}
         type="text"
         placeholder="Enter number of minutes (maximum - 60):"
       />
       <br />
       <button
-        onClick={changeStatus}
+        onClick={() => dispatch(setStatus(minutes))}
         className={buttons.FilledButtons}
         style={{ width: "100%" }}
       >

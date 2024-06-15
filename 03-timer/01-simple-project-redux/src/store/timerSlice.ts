@@ -12,11 +12,12 @@ export const timerSlice = createSlice({
   name: "timer",
   initialState,
   reducers: {
-    changeStatus: (state) => {
-      console.log(state.value);
-      state.value === "input"
-        ? (state.value = "control")
-        : (state.value = "input");
+    changeStatus: (state, action) => {
+      if (action.payload) {
+        state.value === "input"
+          ? (state.value = "control")
+          : (state.value = "input");
+      }
     },
   },
 });

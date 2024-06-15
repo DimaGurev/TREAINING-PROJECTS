@@ -17,7 +17,7 @@ const TimerControlPanel: React.FC = () => {
   const minutes = useSelector((state: RootState) => state.minutes.value);
   const dispatch = useDispatch();
 
-  const initialSeconds = (minutes ?? 0) * 60;
+  const initialSeconds = (+minutes || 0) * 60;
   const [seconds, setSeconds] = useState(initialSeconds);
   const [isRunning, setIsRunning] = useState<boolean>(false);
 
@@ -44,7 +44,7 @@ const TimerControlPanel: React.FC = () => {
   const toggleTimer = (): void => setIsRunning((prev) => !prev);
 
   const changeStatus = (): void => {
-    dispatch(setStatus());
+    dispatch(setStatus(minutes));
     dispatch(changeMinutes(undefined));
   };
 

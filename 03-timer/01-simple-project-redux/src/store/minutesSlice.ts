@@ -1,20 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { changeStatus } from "./timerSlice";
 
 interface MinutesState {
-  value: number | undefined;
+  value: number | string;
 }
 
 const initialState: MinutesState = {
-  value: undefined,
+  value: "",
 };
 
 export const minutesSlice = createSlice({
   name: "minutes",
   initialState,
   reducers: {
+   
     changeMinutes: (state, action) => {
-      state.value = action.payload;
+      let value = action.payload;
+
+      if (
+        value !== undefined &&
+        !Number.isNaN(value) &&
+        value <= 999999999999999
+      ) {
+        console.log(+value);
+        if (+value === 0) {
+          state.value = "";
+        } else {
+          state.value = +value;
+        }
+      }
+
+      if (Number.isNaN(value)) {
+        state.value = state.value || "";
+      }
     },
   },
 });
