@@ -18,30 +18,16 @@ function countSpaces(str: string) {
   return spacesArray ? spacesArray.length : 0;
 }
 
-function App() {
-  const [text, setText] = useState<string>("");
+import { useSelector, useDispatch } from "react-redux";
+import { getStatistic } from "./store/statisticsSlice";
+import { RootState } from "./store/store";
 
-  const [statistics, setStatistics] = useState<Statistics>({
-    chars: 0,
-    words: 0,
-    spaces: 0,
-    letters: 0,
-  });
+function App() {
+  const statistics = useSelector((state: RootState) => state.statistics);
+  const dispatch = useDispatch();
 
   const handlerText = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    const value = e.target.value;
-    setText(value);
-
-    const arr = value.split(" ");
-
-    const arrFilterWord = arr.filter((i) => (i === "" ? false : true));
-
-    setStatistics({
-      chars: value.length,
-      words: arrFilterWord.length,
-      spaces: countSpaces(value),
-      letters: arrFilterWord.join("").length,
-    });
+    dispatch(getStatistic(e.target.value));
   };
 
   return (
@@ -49,7 +35,7 @@ function App() {
       <div className={main.center}>
         <div className={elevation.LightElevationFifth}>
           <h1 className={typography.HeadlineLarge}>Characters Counter</h1>
-          <textarea onChange={handlerText} value={text}></textarea>
+          <textarea onChange={handlerText} value={statistics.value}></textarea>
           <div className={`${main.row} row`}>
             <div>
               Chars: <span>{statistics.chars}</span>
