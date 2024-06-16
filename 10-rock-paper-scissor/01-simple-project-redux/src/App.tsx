@@ -13,30 +13,27 @@ import Confetti from "react-confetti";
 import stoneImage from "./assets/image/hand-rock.png";
 import paperImage from "./assets/image/hand.png";
 import scissorsImage from "./assets/image/hand-scissors.png";
+import getRandomVariants from "./utils/getRandomVariants";
 
-type VariantAnswers = "stone" | "paper" | "scissors" | null;
-
-const getRandomVariants = (): VariantAnswers => {
-  const randomVariants: VariantAnswers[] = ["stone", "paper", "scissors"];
-  const randomIndex: number = Math.floor(Math.random() * randomVariants.length);
-  return randomVariants[randomIndex];
-};
+// Импорт типов
+import { GameStatus, Variants, VariantsAnswers } from "./types";
 
 function App() {
   const [gameOver, setGameOver] = useState(false);
-  const [gameStatus, setGameStatus] = useState<
-    "You WIN 🥳" | "You LOSE 🤥 " | "DRAW 🤝" | null
-  >(null);
+  const [gameStatus, setGameStatus] = useState<GameStatus | null>(null);
 
   const [playerPoints, setPlayerPoints] = useState(0);
   const [computerPoints, setСomputerPoints] = useState(0);
 
-  const computerSelection = getRandomVariants();
-  const [userSelection, setUserSelection] = useState<VariantAnswers>(null);
+  const [computerSelection, setComputerSelection] = useState(
+    getRandomVariants()
+  );
+
+  const [userSelection, setUserSelection] = useState<VariantsAnswers>(null);
 
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const userSelectedAnAnswerOption = (answer: VariantAnswers): void => {
+  const userSelectedAnAnswerOption = (answer: VariantsAnswers): void => {
     setUserSelection(answer);
   };
 
@@ -46,30 +43,27 @@ function App() {
       setСomputerPoints((prev) => prev + 1);
       setUserSelection(null);
     }
-    // paper stone
-    if (computerSelection === "paper" && userSelection === "stone") {
+
+    if (
+      (computerSelection === Variants.paper &&
+        userSelection === Variants.stone) ||
+      (computerSelection === Variants.scissors &&
+        userSelection === Variants.paper) ||
+      (computerSelection === Variants.stone &&
+        userSelection === Variants.scissors)
+    ) {
       setСomputerPoints((prev) => prev + 1);
       setUserSelection(null);
     }
-    if (computerSelection === "stone" && userSelection === "paper") {
-      setPlayerPoints((prev) => prev + 1);
-      setUserSelection(null);
-    }
-    // scissors paper
-    if (computerSelection === "scissors" && userSelection === "paper") {
-      setСomputerPoints((prev) => prev + 1);
-      setUserSelection(null);
-    }
-    if (computerSelection === "paper" && userSelection === "scissors") {
-      setPlayerPoints((prev) => prev + 1);
-      setUserSelection(null);
-    }
-    // stone scissors
-    if (computerSelection === "stone" && userSelection === "scissors") {
-      setСomputerPoints((prev) => prev + 1);
-      setUserSelection(null);
-    }
-    if (computerSelection === "scissors" && userSelection === "stone") {
+
+    if (
+      (computerSelection === Variants.stone &&
+        userSelection === Variants.paper) ||
+      (computerSelection === Variants.paper &&
+        userSelection === Variants.scissors) ||
+      (computerSelection === Variants.scissors &&
+        userSelection === Variants.stone)
+    ) {
       setPlayerPoints((prev) => prev + 1);
       setUserSelection(null);
     }
@@ -82,15 +76,17 @@ function App() {
   }, [playerPoints, computerPoints]);
 
   useEffect(() => {
+    setComputerSelection(getRandomVariants());
+  }, [userSelection]);
+
+  useEffect(() => {
     if (playerPoints === computerPoints) {
-      setGameStatus("DRAW 🤝");
-    }
-    if (playerPoints > computerPoints) {
-      setGameStatus("You WIN 🥳");
+      setGameStatus(GameStatus.Draw);
+    } else if (playerPoints > computerPoints) {
+      setGameStatus(GameStatus.Win);
       setShowConfetti(true);
-    }
-    if (playerPoints < computerPoints) {
-      setGameStatus("You LOSE 🤥 ");
+    } else {
+      setGameStatus(GameStatus.Lose);
     }
   }, [gameOver]);
 
@@ -98,7 +94,7 @@ function App() {
     <>
       <div className={main.center}>
         <div className={`${elevation.LightElevationFifth} box`}>
-          <h1>Rock Paper Scissors</h1>
+          <h1>Rock Paper Scissors {computerSelection}</h1>
           {showConfetti && <Confetti />}
           <div className={`${main.row} scoreboard`}>
             <span className="player">user</span>
@@ -121,13 +117,15 @@ function App() {
             <>
               <p className="bolt">Get Started, Let's Rock!</p>
               <div className={`${main.row} choice`}>
-                <div onClick={() => userSelectedAnAnswerOption("stone")}>
+                <div onClick={() => userSelectedAnAnswerOption(Variants.stone)}>
                   <img src={stoneImage} alt="stone" />
                 </div>
-                <div onClick={() => userSelectedAnAnswerOption("paper")}>
+                <div onClick={() => userSelectedAnAnswerOption(Variants.paper)}>
                   <img src={paperImage} alt="paper" />
                 </div>
-                <div onClick={() => userSelectedAnAnswerOption("scissors")}>
+                <div
+                  onClick={() => userSelectedAnAnswerOption(Variants.scissors)}
+                >
                   <img src={scissorsImage} alt="scissors" />
                 </div>
               </div>
