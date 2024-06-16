@@ -1,7 +1,7 @@
-import { Variants, VariantsAnswers } from "../types";
+import { Variants } from "../types";
 
-const getRandomVariants = (): VariantsAnswers => {
-  const randomVariants: VariantsAnswers[] = [
+const getRandomVariants = (): Variants => {
+  const randomVariants: Variants[] = [
     Variants.stone,
     Variants.paper,
     Variants.scissors,

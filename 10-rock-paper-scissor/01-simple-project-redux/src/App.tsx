@@ -13,38 +13,39 @@ import Confetti from "react-confetti";
 import stoneImage from "./assets/image/hand-rock.png";
 import paperImage from "./assets/image/hand.png";
 import scissorsImage from "./assets/image/hand-scissors.png";
-import getRandomVariants from "./utils/getRandomVariants";
 
 // Импорт типов
-import { GameStatus, Variants, VariantsAnswers } from "./types";
+import { GameStatus, Variants } from "./types";
+
+// Redux
+import { useSelector, useDispatch } from "react-redux";
+import { changeGameStatus, changeGameOver } from "./store/gameStatusSlice";
+import { RootState } from "./store/store";
+import {
+  addPlayerPoint,
+  addСomputerPoint,
+  clearPlayerSelection,
+  setRandomVariantsAnswer,
+  userSelectedAnAnswerOption,
+} from "./store/userDataSlice";
 
 function App() {
-  const [gameOver, setGameOver] = useState(false);
-  const [gameStatus, setGameStatus] = useState<GameStatus | null>(null);
+  const dispatch = useDispatch();
 
-  const [playerPoints, setPlayerPoints] = useState(0);
-  const [computerPoints, setСomputerPoints] = useState(0);
-
-  const [computerSelection, setComputerSelection] = useState(
-    getRandomVariants()
+  const gameOver = useSelector((state: RootState) => state.gameStatus.gameOver);
+  const gameStatus = useSelector(
+    (state: RootState) => state.gameStatus.gameStatus
   );
-
-  const [userSelection, setUserSelection] = useState<VariantsAnswers>(null);
+  const { computerPoints, computerSelection, playerPoints, userSelection } =
+    useSelector((state: RootState) => state.userData);
 
   const [showConfetti, setShowConfetti] = useState(false);
 
-  const userSelectedAnAnswerOption = (answer: VariantsAnswers): void => {
-    setUserSelection(answer);
-  };
-
-  useEffect(() => {
+  const checkGameResult = () => {
     if (computerSelection === userSelection) {
-      setPlayerPoints((prev) => prev + 1);
-      setСomputerPoints((prev) => prev + 1);
-      setUserSelection(null);
-    }
-
-    if (
+      dispatch(addСomputerPoint());
+      dispatch(addPlayerPoint());
+    } else if (
       (computerSelection === Variants.paper &&
         userSelection === Variants.stone) ||
       (computerSelection === Variants.scissors &&
@@ -52,11 +53,8 @@ function App() {
       (computerSelection === Variants.stone &&
         userSelection === Variants.scissors)
     ) {
-      setСomputerPoints((prev) => prev + 1);
-      setUserSelection(null);
-    }
-
-    if (
+      dispatch(addСomputerPoint());
+    } else if (
       (computerSelection === Variants.stone &&
         userSelection === Variants.paper) ||
       (computerSelection === Variants.paper &&
@@ -64,37 +62,51 @@ function App() {
       (computerSelection === Variants.scissors &&
         userSelection === Variants.stone)
     ) {
-      setPlayerPoints((prev) => prev + 1);
-      setUserSelection(null);
+      dispatch(addPlayerPoint());
+    }
+    dispatch(clearPlayerSelection());
+  };
+
+  useEffect(() => {
+    if (userSelection !== null) {
+      checkGameResult();
     }
   }, [userSelection]);
 
   useEffect(() => {
     if (playerPoints >= 3 || computerPoints >= 3) {
-      setGameOver(true);
+      dispatch(changeGameOver(true));
     }
   }, [playerPoints, computerPoints]);
 
   useEffect(() => {
-    setComputerSelection(getRandomVariants());
-  }, [userSelection]);
-
-  useEffect(() => {
     if (playerPoints === computerPoints) {
-      setGameStatus(GameStatus.Draw);
+      dispatch(changeGameStatus(GameStatus.Draw));
     } else if (playerPoints > computerPoints) {
-      setGameStatus(GameStatus.Win);
+      dispatch(changeGameStatus(GameStatus.Win));
       setShowConfetti(true);
     } else {
-      setGameStatus(GameStatus.Lose);
+      dispatch(changeGameStatus(GameStatus.Lose));
     }
   }, [gameOver]);
+
+  useEffect(() => {
+    dispatch(setRandomVariantsAnswer());
+  }, [userSelection]);
+
+  const handleUserSelection = (variant: Variants) => {
+    dispatch(userSelectedAnAnswerOption(variant));
+  };
 
   return (
     <>
       <div className={main.center}>
         <div className={`${elevation.LightElevationFifth} box`}>
           <h1>Rock Paper Scissors {computerSelection}</h1>
+          <button onClick={() => dispatch(setRandomVariantsAnswer())}>
+            {computerPoints}, {computerSelection}, {playerPoints},{" "}
+            {userSelection}
+          </button>
           {showConfetti && <Confetti />}
           <div className={`${main.row} scoreboard`}>
             <span className="player">user</span>
@@ -117,15 +129,13 @@ function App() {
             <>
               <p className="bolt">Get Started, Let's Rock!</p>
               <div className={`${main.row} choice`}>
-                <div onClick={() => userSelectedAnAnswerOption(Variants.stone)}>
+                <div onClick={() => handleUserSelection(Variants.stone)}>
                   <img src={stoneImage} alt="stone" />
                 </div>
-                <div onClick={() => userSelectedAnAnswerOption(Variants.paper)}>
+                <div onClick={() => handleUserSelection(Variants.paper)}>
                   <img src={paperImage} alt="paper" />
                 </div>
-                <div
-                  onClick={() => userSelectedAnAnswerOption(Variants.scissors)}
-                >
+                <div onClick={() => handleUserSelection(Variants.scissors)}>
                   <img src={scissorsImage} alt="scissors" />
                 </div>
               </div>
