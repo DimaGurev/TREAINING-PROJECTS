@@ -1,32 +1,46 @@
 // Импорт React и его компонентов
 import { useState } from "react";
-import getRandomNumber from "./utils/getRandomNumber";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import {
+  addAnswerOptions,
+  finishGame,
+  selectAnswerOptionsLength as length,
+  setUserName,
+} from "./store/gameSlice";
+import { useSelector } from "react-redux";
+
+import buttons from "./assets/style/buttons.module.scss";
 
 function App() {
-  const [userName, setUsetName] = useState("");
   const [value, setValue] = useState("");
-  const [answerOptions, setAnswerOptions] = useState<number[]>([]);
-  const [randomNumber] = useState(getRandomNumber(0, 100));
-  const [gameIsClosed, setGameIsClosed] = useState(false);
+
+  const dispatch = useAppDispatch();
+
+  const userName = useAppSelector((state) => state.game.userName);
+  const answerOptions = useAppSelector((state) => state.game.answerOptions);
+  const randomNumber = useAppSelector((state) => state.game.randomNumber);
+  const gameIsClosed = useAppSelector((state) => state.game.gameIsClosed);
+
+  const selectAnswerOptionsLength = useSelector(length);
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!userName) {
-      setUsetName(value);
+      dispatch(setUserName(value));
     }
     if (userName) {
-      setAnswerOptions((prev) => [...prev, +value]);
+      dispatch(addAnswerOptions(+value));
     }
     if (userName && +value === randomNumber) {
-      setGameIsClosed(true);
+      dispatch(finishGame());
     }
     setValue("");
   };
 
   return (
     <>
-      <h1>🎲 Guess Number {randomNumber}</h1>
+      <h1>🎲 Guess Number</h1>
       {userName && (
         <p>
           😄 {userName}, there is a number between 0 and 100. Try to guess it in
@@ -54,8 +68,13 @@ function App() {
         <>
           <hr />
           <p>🎊 Right. The number you've guessed: {randomNumber}</p>
-          <p>🎉 Number of attempts: {answerOptions.length}</p>
-          <button onClick={() => window.location.reload()}>Play again?</button>
+          <p>🎉 Number of attempts: {selectAnswerOptionsLength}</p>
+          <button
+            className={buttons.FilledButtons}
+            onClick={() => window.location.reload()}
+          >
+            Play again?
+          </button>
         </>
       )}
       {!gameIsClosed && (

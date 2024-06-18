@@ -2,6 +2,8 @@
 import { useState } from "react";
 import getRandomNumber from "./utils/getRandomNumber";
 
+import buttons from "./assets/style/buttons.module.scss";
+
 function App() {
   const [userName, setUsetName] = useState("");
   const [value, setValue] = useState("");
@@ -55,7 +57,12 @@ function App() {
           <hr />
           <p>🎊 Right. The number you've guessed: {randomNumber}</p>
           <p>🎉 Number of attempts: {answerOptions.length}</p>
-          <button onClick={() => window.location.reload()}>Play again?</button>
+          <button
+            className={buttons.FilledButtons}
+            onClick={() => window.location.reload()}
+          >
+            Play again?
+          </button>
         </>
       )}
       {!gameIsClosed && (
