@@ -11,52 +11,60 @@ import { ToastContainer, toast } from "react-toastify";
 import { settings, settingsCustomToast } from "./utils/toast";
 import CustomToast from "./components/CustomToast";
 import { TypeStatus } from "./types";
-import getRandomNumber from "./utils/getRandomNumber";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import {
+  addError,
+  setAvailability,
+  setEnteredNumber,
+  setStatus,
+} from "./store/gameSlice";
 
 function App() {
-  const [status, setStatus] = useState<TypeStatus>("inProgress");
-  const [availability, setAvailability] = useState(true);
-  const [randomNumber] = useState(getRandomNumber(0, 10));
-  const [enteredNumber, setEnteredNumber] = useState("");
-  const [errors, setErrors] = useState(0);
+  const dispatch = useAppDispatch();
+
+  const status = useAppSelector((state) => state.game.status);
+  // const [status, setStatus] = useState<TypeStatus>("inProgress");
+  const availability = useAppSelector((state) => state.game.availability);
+  // const [availability, setAvailability] = useState(true);
+  const randomNumber = useAppSelector((state) => state.game.randomNumber);
+  // const [randomNumber] = useState(getRandomNumber(0, 10));
+  const enteredNumber = useAppSelector((state) => state.game.enteredNumber);
+  // const [enteredNumber, setEnteredNumber] = useState("");
+  const errors = useAppSelector((state) => state.game.errors);
+  // const [errors, setErrors] = useState(0);
   const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
 
   const submitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (randomNumber === +enteredNumber) {
-      setStatus("victory");
-      setAvailability(false);
+      dispatch(setStatus("victory"));
+      dispatch(setAvailability(false));
     } else {
-      setEnteredNumber("");
-      setAvailability(false);
+      dispatch(setEnteredNumber(""));
+      dispatch(setAvailability(false));
       if (errors + 1 < 3) {
         toast.error(
           `Попробуйте ещё раз! Осталось попыток ${3 - errors - 1}`,
           settings
         );
       }
-      setErrors((prev) => {
-        if (prev + 1 === 3) {
-          setStatus("defeat");
-        }
-        return prev + 1;
-      });
-      setStatus("inProgress");
+      dispatch(addError());
     }
   };
 
   const handleValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setEnteredNumber(value);
+    dispatch(setEnteredNumber(value));
   };
+  console.log(status);
 
   useEffect(() => {
     if (status === "victory") {
       notify(status);
     }
     if (status === "defeat") {
-      setAvailability(false);
+      dispatch(setAvailability(false));
       notify(status);
     }
   }, [status]);
@@ -68,7 +76,7 @@ function App() {
     }
     if (!(errors === 3)) {
       setTimeout(() => {
-        setAvailability(true);
+        dispatch(setAvailability(true));
       }, 1000);
     }
   }, [errors]);
