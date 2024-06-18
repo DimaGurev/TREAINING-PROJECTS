@@ -46,7 +46,6 @@ function App() {
 
   return (
     <>
-      <button onClick={() => console.log(data)}>qwe</button>
       <div className={main.center} style={{ textAlign: "center" }}>
         <div
           className={elevation.LightElevationFirst}
