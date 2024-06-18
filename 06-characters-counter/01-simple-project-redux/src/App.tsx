@@ -3,21 +3,6 @@ import main from "./assets/style/main.module.scss";
 import elevation from "./assets/style/elevation.module.scss";
 import typography from "./assets/style/typography.module.scss";
 
-// Импорт React и его компонентов
-import { useState } from "react";
-
-interface Statistics {
-  chars: number;
-  words: number;
-  spaces: number;
-  letters: number;
-}
-
-function countSpaces(str: string) {
-  const spacesArray = str.match(/ /g);
-  return spacesArray ? spacesArray.length : 0;
-}
-
 import { useSelector, useDispatch } from "react-redux";
 import { getStatistic } from "./store/statisticsSlice";
 import { RootState } from "./store/store";
