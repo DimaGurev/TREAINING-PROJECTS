@@ -8,8 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 
 // Импорт библиотек и сторонних зависимостей
-import { ToastContainer, ToastOptions, toast } from "react-toastify";
-
+import { ToastContainer } from "react-toastify";
 
 // Импорт утилит и вспомогательных функций
 import { getRandomNumber } from "./utils/random";
@@ -18,30 +17,7 @@ import { getRandomNumber } from "./utils/random";
 import mock from "./mock";
 import { shuffleWord } from "./utils/shuffle";
 
-
-const setting: ToastOptions = {
-  position: "bottom-center",
-  autoClose: 1000,
-  hideProgressBar: true,
-  closeOnClick: true,
-  pauseOnHover: false,
-  draggable: false,
-  progress: undefined,
-  theme: "light",
-};
-
-const notifyCurrentNotAnswer = () => {
-  toast.dismiss();
-  toast.error("Please enter the word to check!", setting);
-};
-
-const notifyСurrentAnswer = (currentWord: string) => {
-  toast.dismiss();
-  toast.success(
-    `Congrats! The correct word is: ${currentWord.toLocaleUpperCase()}`,
-    setting
-  );
-};
+import { notifyСurrentAnswer, notifyCurrentNotAnswer } from "./utils/notify";
 
 function App() {
   const defaultSeconds = 30;
