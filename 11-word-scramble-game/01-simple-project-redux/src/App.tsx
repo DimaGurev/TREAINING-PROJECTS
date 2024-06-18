@@ -11,34 +11,29 @@ import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
 // Импорт утилит и вспомогательных функций
-import { getRandomNumber } from "./utils/random";
-
-// Импорт констант и перечислений
-import mock from "./mock";
-import { shuffleWord } from "./utils/shuffle";
-
 import { notifyСurrentAnswer, notifyCurrentNotAnswer } from "./utils/notify";
 
+// Импорт констант и перечислений
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { resetTimer, stopTimer, tick } from "./store/timerSlice";
+import { regeneration } from "./store/wordsSlice";
+
 function App() {
-  const defaultSeconds = 30;
   const [value, setValue] = useState("");
-  const [seconds, setSeconds] = useState(defaultSeconds);
-  const [timeIsOver, setTimeIsOver] = useState(false);
 
-  const [words] = useState<{ word: string; hint: string }[]>(mock);
+  const dispatch = useAppDispatch();
 
-  const getWordHint = () => {
-    return words[getRandomNumber(0, words.length)];
-  };
+  const seconds = useAppSelector((state) => state.timer.time);
+  const isRunning = useAppSelector((state) => state.timer.isRunning);
 
-  const [wordHint, setWordHint] = useState(getWordHint());
-  const [shuffle, setShuffle] = useState(shuffleWord(wordHint.word));
+  const wordHint = useAppSelector((state) => state.words.wordHint);
+  const shuffle = useAppSelector((state) => state.words.shuffle);
 
   const checkCurrentAnswer = () => {
     if (
       value.toLocaleLowerCase().trim() === wordHint.word.toLocaleLowerCase()
     ) {
-      setTimeIsOver(true);
+      dispatch(stopTimer());
       notifyСurrentAnswer(wordHint.word);
     } else {
       notifyCurrentNotAnswer();
@@ -47,26 +42,28 @@ function App() {
 
   const refresh = () => {
     setValue("");
-    setSeconds(defaultSeconds);
-    setTimeIsOver(false);
-    const words = getWordHint();
-    setWordHint(words);
-    setShuffle(shuffleWord(words.word));
+    dispatch(resetTimer());
+    dispatch(regeneration());
   };
 
   useEffect(() => {
     let timer: number;
-    if (!timeIsOver) {
+    if (isRunning) {
       timer = setInterval(() => {
-        setSeconds((prev) => prev - 1);
+        dispatch(tick());
         if (seconds - 1 <= 0) {
-          setTimeIsOver(true);
+          dispatch(stopTimer());
+          clearInterval(timer);
+        }
+        if (isRunning) {
+          clearInterval(timer);
         }
       }, 1000);
     }
 
     return () => clearInterval(timer);
   }, [seconds]);
+  console.log(isRunning);
 
   return (
     <>
@@ -96,7 +93,7 @@ function App() {
             <button
               onClick={checkCurrentAnswer}
               className={buttons.FilledButtons}
-              disabled={timeIsOver}
+              disabled={!isRunning}
             >
               Check Word
             </button>
