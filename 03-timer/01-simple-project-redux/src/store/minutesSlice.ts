@@ -12,7 +12,6 @@ export const minutesSlice = createSlice({
   name: "minutes",
   initialState,
   reducers: {
-   
     changeMinutes: (state, action) => {
       let value = action.payload;
 

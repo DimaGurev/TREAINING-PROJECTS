@@ -35,7 +35,7 @@ const TimerControlPanel: React.FC = () => {
           }
           return prevSeconds - 1;
         });
-      }, 100);
+      }, 1000);
     }
 
     return () => clearInterval(time);
@@ -46,6 +46,8 @@ const TimerControlPanel: React.FC = () => {
   const changeStatus = (): void => {
     dispatch(setStatus(minutes));
     dispatch(changeMinutes(undefined));
+    setSeconds(initialSeconds);
+    setIsRunning(false);
   };
 
   return (
