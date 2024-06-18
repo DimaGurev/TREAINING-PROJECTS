@@ -1,9 +1,6 @@
-  // Импорт React и его компонентов
+// Импорт React и его компонентов
 import { useState } from "react";
-
-function getRandomNumber(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+import getRandomNumber from "./utils/getRandomNumber";
 
 function App() {
   const [userName, setUsetName] = useState("");
@@ -18,7 +15,7 @@ function App() {
     if (!userName) {
       setUsetName(value);
     }
-    if (userName) { 
+    if (userName) {
       setAnswerOptions((prev) => [...prev, +value]);
     }
     if (userName && +value === randomNumber) {
