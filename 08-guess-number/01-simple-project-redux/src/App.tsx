@@ -7,65 +7,11 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 
 // Импорт библиотек и сторонних зависимостей
-import { ToastContainer, ToastOptions, toast } from "react-toastify";
-
-type TypeStatus = "victory" | "defeat" | "inProgress";
-
-interface CustomToastProps {
-  status: TypeStatus;
-  randomNumber: number;
-}
-
-const CustomToast: React.FC<CustomToastProps> = ({ status, randomNumber }) => (
-  <div>
-    {status === "victory" ? (
-      <p>Вы угадали число 🥳</p>
-    ) : (
-      <p>Вы проиграли 🥲!</p>
-    )}
-    <p>Загаданное число - {randomNumber}</p>
-    <button
-      onClick={() => {
-        window.location.reload();
-      }}
-      style={{
-        display: "block",
-        margin: "0 auto",
-        background: status === "victory" ? "green" : "red",
-        border: "none",
-        borderRadius: "10px",
-        padding: "10px",
-        color: "white",
-      }}
-    >
-      Играть снова?
-    </button>
-  </div>
-);
-
-const settingsCustomToast: ToastOptions = {
-  position: "bottom-center",
-  autoClose: false, // Уведомление не исчезает автоматически
-  hideProgressBar: true,
-  closeOnClick: false,
-  pauseOnHover: true,
-  draggable: false,
-  closeButton: false, // Убирает крестик на уведомлении
-  onClose: () => window.location.reload(),
-  style: {
-    background: "",
-  },
-};
-const settings: ToastOptions = {
-  position: "bottom-center",
-  autoClose: 500,
-  hideProgressBar: false,
-  closeOnClick: true,
-  pauseOnHover: false,
-  draggable: true,
-  progress: undefined,
-  theme: "light",
-};
+import { ToastContainer, toast } from "react-toastify";
+import { settings, settingsCustomToast } from "./utils/toast";
+import CustomToast from "./components/CustomToast";
+import { TypeStatus } from "./types";
+import getRandomNumber from "./utils/getRandomNumber";
 
 function App() {
   const [status, setStatus] = useState<TypeStatus>("inProgress");
@@ -167,7 +113,3 @@ function App() {
 }
 
 export default App;
-
-function getRandomNumber(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}

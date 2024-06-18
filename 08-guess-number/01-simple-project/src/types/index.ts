@@ -1,0 +1,1 @@
+export type TypeStatus = "victory" | "defeat" | "inProgress";
