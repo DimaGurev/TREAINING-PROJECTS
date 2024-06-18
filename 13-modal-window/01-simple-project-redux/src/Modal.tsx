@@ -7,22 +7,42 @@ import main from "./assets/style/main.module.scss";
 import typography from "./assets/style/typography.module.scss";
 import buttons from "./assets/style/buttons.module.scss";
 
-const Modal = ({ handleModal }: any) => {
+const overlayStyle: React.CSSProperties = {
+  width: "10vw",
+  height: "100vh",
+  background: "#bd23231c",
+  position: "fixed",
+  left: 0,
+  top: 0,
+};
+
+interface Props {
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Modal = ({ setOpenModal }: Props) => {
+  const close = () => {
+    setOpenModal(false);
+  };
+
+  // Обработчик клика для предотвращения всплытия
+  const handleModalClick = (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
+  };
   return (
     <>
       <div
         className={`${main.center} wrap`}
-        style={{
-          width: "10vw",
-          height: "100vh",
-          background: "#bd23231c",
-          position: "fixed",
-          left: 0,
-          top: 0,
-        }}
+        style={overlayStyle}
+        onClick={close}
       >
-        <div className={`${elevation.DarkElevationFifth} modal`}>
-          <span onClick={handleModal} className="close">
+        <div
+          onClick={handleModalClick}
+          className={`${elevation.DarkElevationFifth} modal`}
+        >
+          <span onClick={close} className="close">
             x
           </span>
           <h1 className={typography.DisplayMedium} style={{ color: "#fff" }}>
@@ -34,7 +54,7 @@ const Modal = ({ handleModal }: any) => {
             Optio, excepturi, consequatur veritatis id accusantium maxime
             fugiat, mollitia voluptatibus et recusandae voluptate?
           </p>
-          <button onClick={handleModal} className={buttons.FilledButtons}>
+          <button onClick={close} className={buttons.FilledButtons}>
             Close Window
           </button>
         </div>

@@ -1,5 +1,5 @@
 // Импорт React и его компонентов
-import React from "react";
+import React, { useEffect } from "react";
 
 // Импорт стилей
 import "./App.css";
@@ -14,20 +14,34 @@ import Modal from "./Modal";
 function App() {
   const [openModal, setOpenModal] = React.useState(false);
 
-  const handleModal = () => {
-    setOpenModal((prev) => !prev);
-  };
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent): void => {
+      if (event.key === "Escape") {
+        setOpenModal(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
     <>
       <div className={`${main.center} wrap`}>
         <div className={elevation.LightElevationFifth}>
           <h1 className={typography.DisplayMedium}>Modal Window</h1>
-          <button onClick={handleModal} className={buttons.OutlinedButtons}>
+          <button
+            onClick={() => setOpenModal(true)}
+            className={buttons.OutlinedButtons}
+          >
             Open Modal
           </button>
         </div>
       </div>
-      {openModal ? <Modal handleModal={handleModal} /> : null}
+      {openModal ? <Modal setOpenModal={setOpenModal} /> : null}
     </>
   );
 }
