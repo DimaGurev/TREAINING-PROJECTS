@@ -6,6 +6,8 @@ import elevation from "./assets/style/elevation.module.scss";
 import main from "./assets/style/main.module.scss";
 import typography from "./assets/style/typography.module.scss";
 import buttons from "./assets/style/buttons.module.scss";
+import { useAppDispatch } from "./store/hooks";
+import { modalClose } from "./store/modalSlice";
 
 const overlayStyle: React.CSSProperties = {
   width: "10vw",
@@ -16,13 +18,11 @@ const overlayStyle: React.CSSProperties = {
   top: 0,
 };
 
-interface Props {
-  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
-}
+const Modal = () => {
+  const dispatch = useAppDispatch();
 
-const Modal = ({ setOpenModal }: Props) => {
   const close = () => {
-    setOpenModal(false);
+    dispatch(modalClose());
   };
 
   // Обработчик клика для предотвращения всплытия

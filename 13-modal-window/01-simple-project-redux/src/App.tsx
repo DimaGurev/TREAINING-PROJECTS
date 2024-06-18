@@ -10,14 +10,17 @@ import buttons from "./assets/style/buttons.module.scss";
 
 // Импорт компонентов
 import Modal from "./Modal";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { modalClose, modalOpen } from "./store/modalSlice";
 
 function App() {
-  const [openModal, setOpenModal] = React.useState(false);
+  const isModal = useAppSelector((state) => state.modal.isOpen);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") {
-        setOpenModal(false);
+        dispatch(modalClose());
       }
     };
 
@@ -34,14 +37,14 @@ function App() {
         <div className={elevation.LightElevationFifth}>
           <h1 className={typography.DisplayMedium}>Modal Window</h1>
           <button
-            onClick={() => setOpenModal(true)}
+            onClick={() => dispatch(modalOpen())}
             className={buttons.OutlinedButtons}
           >
             Open Modal
           </button>
         </div>
       </div>
-      {openModal ? <Modal setOpenModal={setOpenModal} /> : null}
+      {isModal ? <Modal /> : null}
     </>
   );
 }
