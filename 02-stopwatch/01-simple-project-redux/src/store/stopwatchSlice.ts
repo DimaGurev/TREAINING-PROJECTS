@@ -2,12 +2,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Импорт типов и интерфейсов
-import { AppDispatch, RootState } from "../store/store"; // Импорт типов из store
+import { AppDispatch, RootState } from "../store/store";
 
 export interface StopwatchState {
   seconds: number;
   isRunning: boolean;
-  intervalId: number | null; // Добавим поле для хранения ID интервала
+  intervalId: number | null;
   isButtonStartDisabled: boolean;
   isButtonPauseDisabled: boolean;
 }

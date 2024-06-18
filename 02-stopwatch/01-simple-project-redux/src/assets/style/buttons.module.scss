@@ -2,8 +2,6 @@ $--m3-sys-light-primary: #6750a4;
 
 $--m3-white: #ffffff;
 
-$--m3-sys-light-outline: #79747e;
-
 // * Filled buttons
 
 .FilledButtons {
@@ -21,39 +19,8 @@ $--m3-sys-light-outline: #79747e;
   cursor: pointer;
 
   &:hover {
-    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
-  }
-
-  &:active {
-    opacity: 0.9;
-  }
-
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 7px 0px rgba(0, 0, 255, 0.5);
-  }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-}
-.OutlinedButtons {
-  border-radius: 100px;
-  padding: 10px 24px;
-  transition: 0.3s all;
-  cursor: pointer;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 143%;
-  letter-spacing: 0.01em;
-  text-align: center;
-
-  border: 1px solid $--m3-sys-light-outline;
-  background: none;
-
-  &:hover {
-    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15), 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.15),
+      0 1px 2px 0 rgba(0, 0, 0, 0.3);
   }
 
   &:active {

@@ -15,20 +15,13 @@ import {
   selectIsIsButtonPauseDisabled,
 } from "./store/stopwatchSlice";
 import { AppDispatch } from "./store/store";
+import convertSecondsToTime from "./utils/convertSecondsToTime";
 
 function App(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
   const seconds = useSelector(selectSeconds);
   const isButtonStartDisabled = useSelector(selectIsIsButtonStartDisabled);
   const isButtonPauseDisabled = useSelector(selectIsIsButtonPauseDisabled);
-
-  const convertSecondsToTime = (seconds: number): string => {
-    const minutes: number = Math.floor(seconds / 60);
-    const remainingSeconds: number = seconds % 60;
-    const formattedMinutes: string = String(minutes).padStart(2, "0");
-    const formattedSeconds: string = String(remainingSeconds).padStart(2, "0");
-    return `${formattedMinutes}:${formattedSeconds}`;
-  };
 
   return (
     <div className={`${elevation.LightElevationFifth} ${styles.box}`}>
