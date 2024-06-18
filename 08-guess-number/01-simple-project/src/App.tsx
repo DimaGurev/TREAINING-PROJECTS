@@ -42,7 +42,6 @@ function App() {
         }
         return prev + 1;
       });
-      setStatus("inProgress");
     }
   };
 
