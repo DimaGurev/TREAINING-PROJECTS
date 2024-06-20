@@ -1,11 +1,13 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 interface Props {
   isSetTime: boolean;
   options: string[];
   placeholder: string;
   select: string;
-  onChange: (selectedValue: string) => void;
+  // todo: указать правильный тип, а не any
+  onChange: any;
 }
 
 const Select: React.FC<Props> = ({
@@ -15,10 +17,12 @@ const Select: React.FC<Props> = ({
   select,
   onChange,
 }) => {
+  const dispatch = useDispatch();
+
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     console.log(value);
-    onChange(value);
+    dispatch(onChange(value));
   };
   return (
     <select onChange={handleSelectChange} disabled={isSetTime ? true : false}>

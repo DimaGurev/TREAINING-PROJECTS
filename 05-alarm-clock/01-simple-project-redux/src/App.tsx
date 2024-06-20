@@ -5,13 +5,22 @@ import typography from "./assets/style/typography.module.scss";
 import buttons from "./assets/style/buttons.module.scss";
 
 // Импорт React и его компонентов
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 // Импорт компонентов приложения
 import Select from "./components/Select";
 
 // Импорт изображений, шрифтов и других ресурсов
 import { LuAlarmClock } from "react-icons/lu";
 import ringtone from "/sounds/ringtone.mp3";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import {
+  setCurrentTime,
+  setIsTimerFinished,
+  setSelectHours,
+  setSelectMinutes,
+  setselectAMPM,
+  toggleIsSetTime,
+} from "./store/clockSlice";
 
 const audio = new Audio(ringtone);
 
@@ -22,19 +31,24 @@ const options = {
 };
 
 const App: React.FC = () => {
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
-  const [isSetTime, setIsSetTime] = useState<boolean>(false);
-  const [isTimerFinished, setIsTimerFinished] = useState<boolean>(false);
-  const [selectHours, setSelectHours] = useState<string>("");
-  const [selectMinutes, setSelectMinutes] = useState<string>("");
-  const [selectAMPM, setselectAMPM] = useState<string>("");
-  const hours: number = currentTime.getHours();
-  const minutes: number = currentTime.getMinutes();
-  const seconds: number = currentTime.getSeconds();
+  const dispatch = useAppDispatch();
+
+  const currentTime = useAppSelector((state) => state.clock.currentTime);
+  const isSetTime = useAppSelector((state) => state.clock.isSetTime);
+  const isTimerFinished = useAppSelector(
+    (state) => state.clock.isTimerFinished
+  );
+  const selectHours = useAppSelector((state) => state.clock.selectHours);
+  const selectMinutes = useAppSelector((state) => state.clock.selectMinutes);
+  const selectAMPM = useAppSelector((state) => state.clock.selectAMPM);
+
+  const hours: number = currentTime.hours;
+  const minutes: number = currentTime.minutes;
+  const seconds: number = currentTime.seconds;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime(new Date());
+      dispatch(setCurrentTime());
     }, 1000);
 
     return () => {
@@ -48,12 +62,12 @@ const App: React.FC = () => {
         seconds === 0
       ) {
         handlePlay();
-        setIsTimerFinished(true);
+        dispatch(setIsTimerFinished(true));
       }
 
       clearInterval(interval);
     };
-  }, [currentTime]);
+  });
 
   const handlePlay = () => {
     audio.play();
@@ -62,14 +76,16 @@ const App: React.FC = () => {
   const handleReset = () => {
     audio.pause();
     audio.currentTime = 0;
-    setSelectHours("");
-    setSelectMinutes("");
-    setselectAMPM("");
+    dispatch(setSelectHours(""));
+    dispatch(setSelectMinutes(""));
+    dispatch(setselectAMPM(""));
   };
 
   const checkTime = () => {
+    console.log(selectHours, selectMinutes, selectAMPM);
+
     if (selectHours && selectMinutes && selectAMPM) {
-      setIsSetTime((prev) => !prev);
+      dispatch(toggleIsSetTime());
     }
     if (isTimerFinished) {
       handleReset();
