@@ -14,7 +14,8 @@ const setting: ToastOptions = {
 export const notifyCurrentNotAnswer = (currentWord?: string) => {
   toast.dismiss();
   toast.error(
-    "Please enter the word to check!" + ` ${currentWord}` || "",
+    "Please enter the word to check!" +
+      ` ${currentWord ? currentWord?.toLocaleUpperCase() : ""}` || "",
     setting
   );
 };

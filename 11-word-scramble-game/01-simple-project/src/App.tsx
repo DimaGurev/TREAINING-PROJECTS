@@ -61,8 +61,9 @@ function App() {
         setSeconds((prev) => prev - 1);
         if (seconds - 1 <= 0) {
           setTimeIsOver(true);
+          notifyCurrentNotAnswer(wordHint.word);
         }
-      }, 100);
+      }, 1000);
     }
 
     return () => clearInterval(timer);
@@ -74,9 +75,7 @@ function App() {
       <div className={main.center}>
         <div className={`${elevation.LightElevationFifth} box`}>
           <h1>Word Scramble Game</h1>
-          <h2>
-            {shuffle} {wordHint.word}
-          </h2>
+          <h2>{shuffle}</h2>
           <p>
             Hint: <span>{wordHint.hint}</span>
           </p>

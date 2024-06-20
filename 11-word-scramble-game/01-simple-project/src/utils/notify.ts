@@ -11,9 +11,13 @@ const setting: ToastOptions = {
   theme: "light",
 };
 
-export const notifyCurrentNotAnswer = () => {
+export const notifyCurrentNotAnswer = (currentWord?: string) => {
   toast.dismiss();
-  toast.error("Please enter the word to check!", setting);
+  toast.error(
+    "Please enter the word to check!" +
+      ` ${currentWord ? currentWord?.toLocaleUpperCase() : ""}`,
+    setting
+  );
 };
 
 export const notifyСurrentAnswer = (currentWord: string) => {

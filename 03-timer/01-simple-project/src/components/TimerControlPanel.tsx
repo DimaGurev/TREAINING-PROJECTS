@@ -48,7 +48,7 @@ const TimerControlPanel: React.FC<Props> = ({
           }
           return prevSeconds - 1;
         });
-      }, 100);
+      }, 1000);
     }
 
     return () => clearInterval(time);
