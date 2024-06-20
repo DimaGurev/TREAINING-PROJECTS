@@ -62,7 +62,7 @@ function App() {
         if (seconds - 1 <= 0) {
           setTimeIsOver(true);
         }
-      }, 1000);
+      }, 100);
     }
 
     return () => clearInterval(timer);

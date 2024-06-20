@@ -12,7 +12,7 @@ interface GameSlice {
 const initialState: GameSlice = {
   userName: "",
   answerOptions: [],
-  randomNumber: getRandomNumber(0, 100),
+  randomNumber: getRandomNumber(0, 1000),
   gameIsClosed: false,
 };
 

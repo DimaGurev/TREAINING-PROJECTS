@@ -1,20 +1,20 @@
 // Импорт стилей
-import { InputProps } from "../types";
+import { setName, setSelectedDate, toogleStatus } from "../store/gameSlice";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
 import buttons from "./../assets/style/buttons.module.scss";
 import typography from "./../assets/style/typography.module.scss";
 
-const Input: React.FC<InputProps> = ({
-  name,
-  setName,
-  selectedDate,
-  setSelectedDate,
-  changeStatus,
-}) => {
+const Input: React.FC = () => {
+  const dispatch = useAppDispatch();
+
+  const name = useAppSelector((state) => state.game.name);
+  const selectedDate = useAppSelector((state) => state.game.selectedDate);
+
   const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value);
+    dispatch(setName(e.target.value));
   };
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedDate(e.target.value);
+    dispatch(setSelectedDate(e.target.value));
   };
 
   return (
@@ -35,7 +35,7 @@ const Input: React.FC<InputProps> = ({
       />
 
       <button
-        onClick={changeStatus}
+        onClick={() => dispatch(toogleStatus())}
         className={buttons.FilledButtons}
         style={{ marginTop: "30px", width: "100%" }}
       >

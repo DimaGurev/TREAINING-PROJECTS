@@ -11,12 +11,17 @@ import Input from "./components/Input";
 
 // Импорт утилит и вспомогательных функций
 import { convertSecondsToDHMS } from "./utils/time";
+import { useAppDispatch, useAppSelector } from "./store/hooks";
+import { setIsCountdownFinished } from "./store/gameSlice";
 
 function App() {
-  const [status, setStatus] = useState<"input" | "timer">("input");
-  const [isCountdownFinished, setIsCountdownFinished] = useState(false);
-  const [name, setName] = useState<string>("");
-  const [selectedDate, setSelectedDate] = useState<string>("");
+  const dispatch = useAppDispatch();
+
+  const status = useAppSelector((state) => state.game.status);
+  const isCountdownFinished = useAppSelector(
+    (state) => state.game.isCountdownFinished
+  );
+  const selectedDate = useAppSelector((state) => state.game.selectedDate);
 
   const selectedDateInSeconds = new Date(selectedDate).getTime() / 1000;
   const currentDate = new Date();
@@ -33,8 +38,10 @@ function App() {
     setTimeDifferenceInSeconds(
       selectedDateInSeconds - currentDateInSeconds + timezoneOffset
     );
-    setIsCountdownFinished(
-      selectedDateInSeconds - currentDateInSeconds + timezoneOffset < 0
+    dispatch(
+      setIsCountdownFinished(
+        selectedDateInSeconds - currentDateInSeconds + timezoneOffset < 0
+      )
     );
   }, [selectedDate]);
 
@@ -48,15 +55,6 @@ function App() {
     return () => clearInterval(interval);
   }, [status]);
 
-  const changeStatus = () => {
-    if (name && selectedDate) {
-      setStatus((prev) => (prev === "input" ? "timer" : "input"));
-    } else {
-      if (!name) alert("'Name' field is empty");
-      if (!selectedDate) alert("'Date' field is empty");
-    }
-  };
-
   return (
     <>
       <div className={main.center}>
@@ -64,25 +62,8 @@ function App() {
           className={elevation.LightElevationFifth}
           style={{ width: "500px" }}
         >
-          {status === "input" && (
-            <Input
-              name={name}
-              setName={setName}
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-              changeStatus={changeStatus}
-            />
-          )}
-          {status === "timer" && (
-            <Timer
-              isCountdownFinished={isCountdownFinished}
-              name={name}
-              changeStatus={changeStatus}
-              {...timeObject}
-              setName={setName}
-              setSelectedDate={setSelectedDate}
-            />
-          )}
+          {status === "input" && <Input />}
+          {status === "timer" && <Timer {...timeObject} />}
         </div>
       </div>
     </>

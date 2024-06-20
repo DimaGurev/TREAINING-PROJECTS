@@ -102,11 +102,7 @@ function App() {
     <>
       <div className={main.center}>
         <div className={`${elevation.LightElevationFifth} box`}>
-          <h1>Rock Paper Scissors {computerSelection}</h1>
-          <button onClick={() => dispatch(setRandomVariantsAnswer())}>
-            {computerPoints}, {computerSelection}, {playerPoints},{" "}
-            {userSelection}
-          </button>
+          <h1>Rock Paper Scissors</h1>
           {showConfetti && <Confetti />}
           <div className={`${main.row} scoreboard`}>
             <span className="player">user</span>

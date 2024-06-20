@@ -8,22 +8,21 @@ import TimeBlock from "./TimeBlock";
 
 // Импорт типов и интерфейсов
 import { TimerProps } from "../types";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { setName, setSelectedDate, toogleStatus } from "../store/gameSlice";
 
-const Timer: React.FC<TimerProps> = ({
-  isCountdownFinished,
-  name,
-  days,
-  hours,
-  minutes,
-  seconds,
-  changeStatus,
-  setName,
-  setSelectedDate,
-}) => {
+const Timer: React.FC<TimerProps> = ({ days, hours, minutes, seconds }) => {
+  const dispatch = useAppDispatch();
+
+  const name = useAppSelector((state) => state.game.name);
+  const isCountdownFinished = useAppSelector(
+    (state) => state.game.isCountdownFinished
+  );
+
   const resetTimer = () => {
-    changeStatus();
-    setName("");
-    setSelectedDate("");
+    dispatch(toogleStatus());
+    dispatch(setName(""));
+    dispatch(setSelectedDate(""));
   };
 
   return (

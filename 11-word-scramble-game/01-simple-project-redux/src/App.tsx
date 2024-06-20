@@ -54,6 +54,7 @@ function App() {
         if (seconds - 1 <= 0) {
           dispatch(stopTimer());
           clearInterval(timer);
+          notifyCurrentNotAnswer(wordHint.word);
         }
         if (isRunning) {
           clearInterval(timer);
@@ -71,9 +72,7 @@ function App() {
       <div className={main.center}>
         <div className={`${elevation.LightElevationFifth} box`}>
           <h1>Word Scramble Game</h1>
-          <h2>
-            {shuffle} {wordHint.word}
-          </h2>
+          <h2>{shuffle}</h2>
           <p>
             Hint: <span>{wordHint.hint}</span>
           </p>

@@ -43,7 +43,7 @@ function App() {
       <h1>🎲 Guess Number</h1>
       {userName && (
         <p>
-          😄 {userName}, there is a number between 0 and 100. Try to guess it in
+          😄 {userName}, there is a number between 0 and 1000. Try to guess it in
           the fewest number of tries. After each attempt, there will be a
           message with the text - 'Few', 'Many' or 'Right'.'
         </p>
@@ -80,7 +80,7 @@ function App() {
       {!gameIsClosed && (
         <form onSubmit={submitForm}>
           <input
-            max={100}
+            max={1000}
             onChange={(e) => setValue(e.target.value)}
             value={value}
             type={userName ? "number" : "text"}
