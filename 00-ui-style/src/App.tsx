@@ -5,8 +5,15 @@ import styles from "./App.module.scss";
 import typography from "./assets/style/typography.module.scss";
 import elevation from "./assets/style/elevation.module.scss";
 import buttons from "./assets/style/buttons.module.scss";
+import Select from "./components/Select/Select";
+import { useState } from "react";
 
 function App() {
+  const [option, setOption] = useState();
+  const variants = ["не выбрано", "Яблоко", "Банан", "Фрукт"];
+
+  const width = 150;
+
   return (
     <>
       <main className={styles.container}>
@@ -127,6 +134,11 @@ function App() {
           <h2>Inputs</h2>
           <hr />
           <input type="text" placeholder="placeholder" />
+        </article>
+        <article>
+          <h2>Select</h2>
+          <hr />
+          <Select variants={variants} setOption={setOption} width={width} />
         </article>
       </main>
     </>

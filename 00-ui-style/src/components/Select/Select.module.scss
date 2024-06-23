@@ -1,0 +1,61 @@
+$mainbgcolor: #ffffff;
+
+.border {
+  position: relative;
+
+  display: inline-block;
+
+  user-select: none;
+  p {
+    background-color: $mainbgcolor;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+}
+.variants {
+  width: 100%;
+  margin-top: 3px;
+  border-radius: 5px;
+  left: 0;
+  top: 100%;
+  position: absolute;
+  background-color: $mainbgcolor;
+  animation-name: identifier;
+  animation-duration: 0.3s;
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      background: $mainbgcolor;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      padding: 5px 10px;
+      border-radius: 3px;
+      &:hover {
+        background-color: #cccccc;
+      }
+    }
+  }
+}
+@keyframes identifier {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.arrow {
+  transition: all 0.2s linear;
+}
+.rotate {
+  transform: rotate(180deg);
+}
