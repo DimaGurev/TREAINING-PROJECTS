@@ -1,0 +1,10 @@
+.pagination {
+  margin: 30px 0 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+.active {
+  background-color: #c0c0c0;
+}

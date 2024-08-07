@@ -1,0 +1,51 @@
+.border {
+  border: 1px solid rgb(0, 0, 0);
+  border-width: 2px;
+  border-radius: 7px;
+  overflow: hidden;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  min-height: 100px;
+  img {
+    display: block;
+  }
+}
+.image {
+}
+.footer {
+  text-align: center;
+  padding: 10px;
+  p {
+    + p {
+      margin-top: 7px;
+    }
+
+    text-align: center;
+    color: #000000;
+    text-decoration: none;
+    margin: 0;
+    font-family: "Poppins", "Google Sans Mono", system-ui, -apple-system,
+      Segoe UI, Roboto, Noto Sans, Ubuntu, Cantarell, Helvetica Neue;
+  }
+}
+.ordinal {
+  display: inline;
+  color: #fff;
+  background-color: rgb(163 163 163);
+  font-weight: 500;
+  padding: 5px;
+  border-radius: 10px;
+}
+.name {
+  font-weight: 700;
+}
+.type {
+  font-weight: 700;
+  span {
+    font-weight: 400;
+  }
+}
